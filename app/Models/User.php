@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'ci',
+        'last_name',
+        'phone',
+        'address',
+        'birthday',
+        'city_id',
+        'rol_id',
     ];
 
     /**
@@ -41,4 +49,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function contrato()
+    {
+        return $this->hasMany(Contrato::class);
+    }
+
+    public function userVehiculo()
+    {
+        return $this->hasMany(UserVehiculo::class);
+    }
 }
