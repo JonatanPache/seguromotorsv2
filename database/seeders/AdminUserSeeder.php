@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\City;
+use App\Models\Deducible;
 use App\Models\Moneda;
 use App\Models\Rol;
+use App\Models\TipoCombustible;
 use App\Models\TipoServicioVehiculo;
 use App\Models\TipoUsoVehiculo;
 use App\Models\User;
@@ -20,7 +22,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-
+/*
         Rol::create([
             'name' => 'admin',
             'description' => 'administrador',
@@ -75,5 +77,32 @@ class AdminUserSeeder extends Seeder
             'name' => 'Normal',
             'description' => 'solo uso taxi',
         ]);
+
+        TipoCombustible::create([
+            'name' => 'Gasolina',
+            'description' => 'gasolina normal',
+        ]);
+        TipoCombustible::create([
+            'name' => 'Diesel',
+            'description' => 'diesel',
+        ]);
+        TipoCombustible::create([
+            'name' => 'Gas Natural',
+            'description' => 'gas ',
+        ]);*/
+        Deducible::create([
+            'name' => 'NO APLICA',
+            'description' => 'No aplica para tal seguro ',
+        ]);
+        Deducible::create([
+            'name' => 'POR EVENTO',
+            'description' => 'Solo se aplica por evento siniestro de acuerdo al limite de la cobertura',
+        ]);
+        Deducible::create([
+            'name' => 'VALUABLE',
+            'description' => 'No aplica para tal seguro ',
+            'value'=>''
+        ]);
+
     }
 }

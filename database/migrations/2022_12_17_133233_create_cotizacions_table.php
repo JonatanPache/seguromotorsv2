@@ -27,6 +27,9 @@ return new class extends Migration
             $table->foreignId('coaseguro_id')
                 ->contrained()
                 ->cascadeOnDelete();
+            $table->foreignId('solicitud_id')
+                ->contrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

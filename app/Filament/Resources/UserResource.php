@@ -26,6 +26,7 @@ use App\Filament\Resources\UserResource\Pages;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\TipoCombustible;
 use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
@@ -92,7 +93,12 @@ class UserResource extends Resource
                                             ->label('City')
                                             ->options(City::query()->pluck('name', 'id'))
                                             ->reactive(),
+                                        Select::make('tipo_combustible_id')
+                                            ->label('Tipo Combustible')
+                                            ->options(TipoCombustible::query()->pluck('name', 'id'))
+                                            ->reactive(),
                                         TextInput::make('placa'),
+                                        TextInput::make('valor_comercial'),
                                         FileUpload::make('image1')
                                             ->required(),
                                         FileUpload::make('image2'),

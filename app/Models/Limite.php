@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Limite extends Model
 {
     use HasFactory;
+
+    protected  $fillable = [
+            'name',
+            'description',
+            'value'
+    ];
+
+
 }

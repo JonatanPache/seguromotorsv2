@@ -64,6 +64,10 @@
                 </div>
 
                 @csrf
+
+
+
+                <!--
                 <div class="flex gap-8">
                     <div>
                         <input class="input" type="text" name="name" x-model="form.name"
@@ -85,8 +89,13 @@
                 <template x-if="errors.body">
                     <span x-show="errors.body" x-text="errors.body[0]" class="text-sm text-red-400"></span>
                 </template>
+                -->
                 <button type="submit" class="btn btn-lg bg-accent hover:bg-light-secondary
-                    text-black hover:text-light-tail-100 dark:hover:text-white">Send message</button>
+                    text-black hover:text-light-tail-100 dark:hover:text-white">
+                    <a href="{{ route('solicitud') }}">
+                        Solicitar Ahora!
+                    </a>
+                </button>
 
             </form>
 

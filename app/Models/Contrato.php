@@ -11,9 +11,12 @@ class Contrato extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'preposicion',
         'user_id',
-        'seguro_id'
+        'cotizacion_id',
+        'date_start',
+        'date_end',
+        'status'
     ];
 
     /*public function polizas()
@@ -29,5 +32,10 @@ class Contrato extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function cotizacion()
+    {
+        return $this->belongsTo(Cotizacion::class);
     }
 }

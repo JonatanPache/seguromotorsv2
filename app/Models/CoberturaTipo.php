@@ -12,17 +12,19 @@ class CoberturaTipo extends Model
     protected $fillable=[
         'cobertura_id',
         'cobertura_tipo_id',
-        'moneda_id',
         'porcentaje_cob',
-        'porcentaje_partir',
         'monto_cobertura',
-        'limite_max',
-        'prima_cant'
+        'limite_id',
     ];
 
     public function moneda()
     {
         return $this->belongsTo(Moneda::class);
+    }
+
+    public function limite()
+    {
+        return $this->belongsTo(Limite::class);
     }
 
 

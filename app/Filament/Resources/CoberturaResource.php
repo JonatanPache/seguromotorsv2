@@ -19,6 +19,7 @@ use App\Filament\Resources\CoberturaResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CoberturaResource\RelationManagers;
 use App\Models\CoberturaTipo;
+use App\Models\Limite;
 use App\Models\TipoCobertura;
 
 class CoberturaResource extends Resource
@@ -49,13 +50,13 @@ class CoberturaResource extends Resource
                                             ->options(TipoCobertura::query()->pluck('name','id'))
                                             ->required()
                                             ->reactive(),
-                                        Select::make('moneda_id')
-                                            ->relationship('moneda','name')->required(),
                                         TextInput::make('porcentaje_cob')->label('Porcentaje Cobertura'),
-                                        TextInput::make('porcentaje_partir')->label('Porcentaje a partir del riesgo'),
                                         TextInput::make('monto_cobertura')->label('Monto'),
-                                        TextInput::make('limite_max')->label('Limite Max'),
-                                        TextInput::make('prima_cant')->label('Cantidad Prima')
+                                        Select::make('limite_id')
+                                            ->label('Limite')
+                                            ->options(Limite::query()->pluck('name','id'))
+                                            ->required()
+                                            ->reactive()
                                     ])
                                     ->defaultItems(1)
 

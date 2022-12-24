@@ -1,11 +1,11 @@
 const { Container } = require('postcss');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors=require("tailwindcss/colors");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 
     presets: [
-        ...
         require('./vendor/wireui/wireui/tailwind.config.js')
     ],
 

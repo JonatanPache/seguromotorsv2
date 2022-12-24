@@ -32,7 +32,8 @@ class VehiculoResource extends Resource
                 TextInput::make('clase'),
                 TextInput::make('modelo'),
                 TextInput::make('motor_nro'),
-                TextInput::make('serie'),
+                TextInput::make('motor_serie'),
+                TextInput::make('motor_potencia'),
                 TextInput::make('capacidad'),
                 TextInput::make('nro_puerta'),
 
@@ -47,7 +48,7 @@ class VehiculoResource extends Resource
                 TextColumn::make('brand.name')->sortable()->searchable(),
                 TextColumn::make('clase')->sortable()->searchable(),
                 TextColumn::make('modelo')->sortable()->searchable(),
-                TextColumn::make('serie')->sortable()->searchable(),
+                TextColumn::make('motor_serie')->sortable()->searchable(),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([

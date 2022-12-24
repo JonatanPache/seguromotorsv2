@@ -12,7 +12,6 @@ class Seguro extends Model
     protected $fillable = [
         'name',
         'description',
-        'cost',
         'plan_id',
         'is_enable'
     ];

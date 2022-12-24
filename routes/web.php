@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Solicitud;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 });
+
+Route::get('/solicitudCotizacion', [Solicitud::class,'index'])->name('solicitud');
 
 require __DIR__.'/auth.php';

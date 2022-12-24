@@ -13,7 +13,8 @@ class Vehiculo extends Model
         'clase',
         'modelo',
         'motor_nro',
-        'serie',
+        'motor_serie',
+        'motor_potencia',
         'nro_puerta',
         'capacidad',
         'brand_id'

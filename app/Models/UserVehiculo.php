@@ -16,11 +16,17 @@ class UserVehiculo extends Model
         'tipo_uso_id',
         'city_id',
         'placa',
+        'tipo_combustible_id',
+        'valor_comercial',
         'image1',
         'image2',
         'image3'
     ];
 
+    public function tipoCombustible()
+    {
+        return $this->belongsTo(TipoCombustible::class);
+    }
     public function cities()
     {
         return $this->belongsTo(City::class);

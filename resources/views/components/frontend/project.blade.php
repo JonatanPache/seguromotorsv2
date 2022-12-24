@@ -7,7 +7,7 @@
 
     <div class="flex items-center px-6 py-3 bg-gray-900">
         <h1 class="mx-3 text-lg font-semibold text-white group-hover:text-light-tail-100
-        dark:group-hover:text-dark-navy-100">{{ $project->skill->name  }}</h1>
+        dark:group-hover:text-dark-navy-100">{{ $project->name  }}</h1>
     </div>
 
     <div class="px-6 py-4">

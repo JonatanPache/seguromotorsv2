@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base{
     body{
         @apply font-body text-paragraph leading-6 bg-gray-200;

@@ -28,20 +28,20 @@ class SeguroResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+        /*
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $plan = Plan::find($state);
+                        if ($plan) {
+                            $set('cost', $plan->cost);
+                        }
+                    })*/
             ->schema([
                 TextInput::make('name'),
                 TextInput::make('description'),
                 Select::make('plan_id')
                     ->relationship('plan', 'name')
                     ->required()
-                    ->reactive()
-                    ->afterStateUpdated(function ($state, callable $set) {
-                        $plan = Plan::find($state);
-                        if ($plan) {
-                            $set('cost', $plan->cost);
-                        }
-                    }),
-                TextInput::make('cost')->disabled(),
+                    ->reactive(),
                 Toggle::make('is_enable')
                     ->onIcon('heroicon-s-lightning-bolt')
                     ->offIcon('heroicon-s-user')
@@ -57,15 +57,7 @@ class SeguroResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('description')->sortable()->searchable(),
-                TextColumn::make('cost')->sortable()->searchable(),
-                BadgeColumn::make('is_enable')
-                    ->colors([
-                        'primary',
-                        'secondary' => 'draft',
-                        'warning' => 'reviewing',
-                        'success' => 'published',
-                        'danger' => 'rejected',
-                    ]),
+                BadgeColumn::make('is_enable'),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([

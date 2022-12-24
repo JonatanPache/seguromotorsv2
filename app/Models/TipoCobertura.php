@@ -18,4 +18,9 @@ class TipoCobertura extends Model
     {
         return $this->hasMany(TipoCoberturaMotivo::class);
     }
+
+    public function cotizacionDeducible()
+    {
+        return $this->hasMany(CotizacionDeducible::class);
+    }
 }
