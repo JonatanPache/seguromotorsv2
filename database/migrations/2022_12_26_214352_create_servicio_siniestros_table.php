@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contratos', function (Blueprint $table) {
+        Schema::create('servicio_siniestros', function (Blueprint $table) {
             $table->id();
-            $table->text('preposicion');
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignId('cotizacion_id')
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->date('date_start');
-            $table->date('date_end');
-            $table->string('cliente_firm')->nullable();
+            $table->foreignId('solicitud_siniestro_id')
+            ->contrained()
+            ->cascadeOnDelete();
+            $table->foreignId('empleado_id')
+            ->contrained()
+            ->cascadeOnDelete();
+            $table->text('observaciones');
             $table->enum('status',
              ['new', 'processing', 'up', 'down', 'cancelled'])
              ->default('new');
+             $table->string('latitude');
+             $table->string('longitude');
+             $table->string('total_costo')->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contratos');
+        Schema::dropIfExists('servicio_siniestros');
     }
 };

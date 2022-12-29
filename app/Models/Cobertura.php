@@ -11,7 +11,8 @@ class Cobertura extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'status'
     ];
 
     public function coberturaTipo()

@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Coaseguro extends Model
+class CostoSiniestro extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'siniestro_id',
         'name',
-        'description',
-        'value',
-        'status'
+        'detalle',
+        'costo'
     ];
 
-    public function cotizacion()
+    public function siniestro()
     {
-        return $this->hasMany(Cotizacion::class);
+        return $this->belongsTo(ServicioSiniestro::class);
     }
-
 }

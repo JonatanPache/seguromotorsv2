@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('descripcion');
+            $table->enum('status',
+             ['new', 'processing', 'up', 'down', 'cancelled'])
+             ->default('new');
             $table->timestamps();
         });
     }

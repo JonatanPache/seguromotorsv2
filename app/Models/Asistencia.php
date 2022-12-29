@@ -13,6 +13,7 @@ class Asistencia extends Model implements Audi
 
     protected $fillable = [
         'name',
-        'descripcion'
+        'descripcion',
+        'status'
     ];
 }

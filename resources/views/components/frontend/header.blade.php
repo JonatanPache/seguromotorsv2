@@ -3,20 +3,48 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5
         rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="#" class="flex items-center">
-                <img src="/img/logo.webp" class="mr-2 h-8 sm:h-24" alt="Flowbite Logo" />
+            <a href="{{ route('welcome') }}" class="flex items-center">
+                <img src="/img/logo.webp" class="mr-2 h-8 sm:h-24" alt="SeguroMotors Logo" id="logo"/>
                 <span class="self-center text-xl font-semibold whitespace-nowrap
                     dark:text-white">SeguroMotors</span>
             </a>
-            <div class="flex items-center md:order-2">
+            <div class="flex items-center md:order-2 dropdown relative">
 
                 @auth
-                <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4
-                    focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false"
-                    data-dropdown-toggle="user-id" data-dropdown-placement="bottom">
-                    <span class="sr-only">Open user menu</span>
+                <button class="dropdown-toggle inline-block px-6 py-2.5 bg-purple-600
+                    text-white font-medium text-xs leading-tight uppercase rounded
+                    shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700
+                    focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800
+                    active:shadow-lg active:text-white transition duration-150 ease-in-out
+                    flex items-center whitespace-nowrap" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     <img class="w-8 h-8 rounded-full" src="/img/condor-logo-header.jpg" alt="user photo">
+
                 </button>
+                <ul class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50
+                float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0
+                bg-clip-padding border-none bg-gray-800"
+                    aria-labelledby="dropdownMenuButton2">
+                    <h6
+                        class="text-gray-400 font-semibold text-sm py-2 px-4 block w-full
+                        whitespace-nowrap bg-transparent">
+                        {{ auth()->user()->name}}
+                    </h6>
+                    <!--
+                    <span
+                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap
+                        bg-transparent text-gray-300">Notificaciones</span>
+                    -->
+                        <li>
+                        <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-gray-700 hover:text-white focus:text-white focus:bg-gray-700 active:bg-blue-600"
+                            href="{{ route('notifications') }}">Notificaciones</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-gray-700 hover:text-white focus:text-white focus:bg-gray-700"
+                            href="{{ route('notifications') }}">Salir</a>
+                    </li>
+
+                </ul>
                 @else
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -28,39 +56,6 @@
                     </div>
                 </form>
                 @endauth
-
-                <!-- Dropdown menu -->
-                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y
-                    divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-id">
-                    <div class="px-4 py-3">
-                        <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                        <span
-                            class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-                    </div>
-                    <ul class="py-1" aria-labelledby="user-menu-button">
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
-                                dark:hover:bg-gray-600 dark:text-gray-200
-                                dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
-                                dark:hover:bg-gray-600 dark:text-gray-200
-                                dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
-                                dark:hover:bg-gray-600 dark:text-gray-200
-                                dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
-                                dark:hover:bg-gray-600 dark:text-gray-200
-                                dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
 
                 <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg
                         md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2
@@ -92,7 +87,7 @@
                         </button>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100
+                        <a href="{{ route('pagos') }}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100
                             md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
                             md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white
                             md:dark:hover:bg-transparent dark:border-gray-700">Paga Tu Seguro</a>
@@ -108,57 +103,7 @@
             </div>
         </div>
 
-        <div id="mega-menu-full-dropdown"
-            class="mt-1 border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-800 dark:border-gray-600">
-            <div class="grid max-w-screen-xl px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:px-6">
-                <ul>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Online Stores</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Segmentation</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Marketing CRM</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Online Stores</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Segmentation</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <div class="font-semibold">Marketing CRM</div>
-                            <span class="text-sm font-light text-gray-500 dark:text-gray-400">Connect with third-party
-                                tools that you're already using.</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
 
     </nav>
 

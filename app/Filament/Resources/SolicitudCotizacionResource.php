@@ -37,12 +37,15 @@ class SolicitudCotizacionResource extends Resource
     {
         return $form
             ->schema([
-                Toggle::make('status')
-                    ->label('Confirmar solicitud ?')
-                    ->onIcon('heroicon-s-lightning-bolt')
-                    ->offIcon('heroicon-s-user')
-                    ->onColor('success')
-                    ->offColor('danger'),
+                Select::make('status')
+                ->options([
+                    'new' => 'New',
+                    'processing' => 'Processing',
+                    'up' => 'Up',
+                    'down' => 'Down',
+                    'cancelled' => 'Cancelled',
+                ])
+                ->required(),
                 TextInput::make('date')
                     ->disabled(),
                 TextInput::make('seguro_id')
@@ -79,7 +82,12 @@ class SolicitudCotizacionResource extends Resource
                 TextColumn::make('date')->sortable()->searchable(),
                 TextColumn::make('cliente.name')->sortable()->searchable(),
                 TextColumn::make('seguro.name')->sortable()->searchable(),
-                BooleanColumn::make('status'),
+                BadgeColumn::make('status')
+                    ->colors([
+                        'danger' => fn ($state) => in_array($state, ['down','cancelled']),
+                        'warning' => fn ($state) => in_array($state, ['new','processing']),
+                        'success' => fn ($state) => in_array($state, ['up']),
+                    ]),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([

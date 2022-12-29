@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('gastos');
             $table->string('iva');
             $table->string('prima_total');
-            $table->boolean('status')->default(false);
+            $table->enum('status',
+             ['new', 'processing', 'up', 'down', 'cancelled'])
+             ->default('new');
             $table->foreignId('coaseguro_id')
                 ->contrained()
                 ->cascadeOnDelete();

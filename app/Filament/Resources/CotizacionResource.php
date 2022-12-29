@@ -12,6 +12,7 @@ use App\Models\Limite;
 use App\Models\SolicitudCotizacion;
 use App\Models\TipoCobertura;
 use App\Models\UserVehiculo;
+use App\Notifications\UserCotizacionNotification;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeField;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -48,18 +49,23 @@ class CotizacionResource extends Resource
                     Select::make('solicitud_id')
                         ->relationship('solicitud', 'id')
                         ->options(
-                            SolicitudCotizacion::where('status', '=', '1')
+                            SolicitudCotizacion::where('status', '=', 'up')
                                 ->pluck('id', 'id')
                         )
                         ->required()
                         ->afterStateUpdated(function ($state, callable $set) {
                             $sol = SolicitudCotizacion::find($state);
+                            $name=$sol->cliente->name;
                             if ($sol) {
                                 $set('date_start', Carbon::now()->toDateString());
                                 $set('date_end', Carbon::now()->addYear()->toDateString());
+                                $set('cliente',$name);
                             }
                         })
                         ->reactive(),
+                    TextInput::make('cliente')
+                        ->label('Cliente Name')
+                        ->disabled(),
                     Select::make('coaseguro_id')
                         ->relationship('coaseguro', 'name')->required(),
                     TextInput::make('date_start')->label(__('Fecha Inicial')),
@@ -70,7 +76,25 @@ class CotizacionResource extends Resource
                     TextInput::make('iva')->label('IVA (13%)'),
                     TextInput::make('prima_total')->label('Precio Prima Total'),
                     TextInput::make('descuento')->label('Recargo Financiero'),
-                    Toggle::make('status')->label('Confirmar')
+                    Toggle::make('status')
+                        ->label('Confirmar')
+                        ->reactive()
+                        ->afterStateUpdated(function ($state,callable $get) {
+                            if ($state == 1) {
+                                $solicitud_cliente=SolicitudCotizacion::where('id','=',$get('solicitud_id'))->first();
+
+                                $cliente=$solicitud_cliente->cliente;
+                                $cotizacion=[
+                                    'prima_neta'=>$get('prima_neta'),
+                                    'gastos'=>$get('gastos'),
+                                    'total_primas'=>$get('total_primas'),
+                                    'iva'=>$get('iva'),
+                                    'prima_total'=>$get('prima_total'),
+                                    'descuento'=>$get('descuento')
+                                ];
+                                $cliente->notify(new UserCotizacionNotification($cliente,$solicitud_cliente,$cotizacion));
+                            }
+                        })
                 ]), Group::make()->schema([
                     Repeater::make('cotizacionDeducible')
                         ->relationship()
@@ -117,12 +141,12 @@ class CotizacionResource extends Resource
                                 ->label('Tipo Deducible')
                                 ->options(Deducible::query()->pluck('name', 'id'))
                                 ->reactive(),
-                            TextInput::make('value')
+                            TextInput::make('deducible_value')
                                 ->label('Valor del deducible (%)')
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $get, callable $set) {
                                     $deducible = Deducible::find($get('deducible_id'));
-                                    if ($deducible && $deducible->id != 3) {
+                                    if ($deducible) {
                                         $deducible->value = $state;
                                         $deducible->save();
                                     }
@@ -131,22 +155,22 @@ class CotizacionResource extends Resource
                                         $user_vehiculo = UserVehiculo::where('placa', '=', $solici->placa)->first();
                                         if ($user_vehiculo) {
                                             $valor_comercial = (float)$user_vehiculo->valor_comercial;
-                                            $new_state=((float)$state/100)*0.08;
+                                            $new_state = ((float)$state / 100) * 0.08;
                                             $prima_neta = (float)$get('../../prima_neta') + $valor_comercial * $new_state;
 
 
-                                            $gastos=0.03*$prima_neta;
-                                            $valor_prima=$prima_neta+$gastos;
-                                            $iva=0.13*$valor_prima;
-                                            $precio_prima=$valor_prima+$iva;
-                                            $recargo=0.10*$precio_prima;
+                                            $gastos = 0.03 * $prima_neta;
+                                            $valor_prima = $prima_neta + $gastos;
+                                            $iva = 0.13 * $valor_prima;
+                                            $precio_prima = $valor_prima + $iva;
+                                            $recargo = 0.10 * $precio_prima;
 
                                             $prima_neta = sprintf("%.3f", $prima_neta);
-                                            $gastos=sprintf("%.3f", $gastos);
-                                            $valor_prima=sprintf("%.3f", $valor_prima);
-                                            $iva=sprintf("%.3f", $iva);
-                                            $precio_prima=sprintf("%.3f", $precio_prima);
-                                            $recargo=sprintf("%.3f", $recargo);
+                                            $gastos = sprintf("%.3f", $gastos);
+                                            $valor_prima = sprintf("%.3f", $valor_prima);
+                                            $iva = sprintf("%.3f", $iva);
+                                            $precio_prima = sprintf("%.3f", $precio_prima);
+                                            $recargo = sprintf("%.3f", $recargo);
 
                                             $set('../../prima_neta', $prima_neta);
                                             $set('../../gastos', $gastos);
@@ -154,7 +178,6 @@ class CotizacionResource extends Resource
                                             $set('../../iva', $iva);
                                             $set('../../prima_total', $precio_prima);
                                             $set('../../descuento', $recargo);
-
                                         }
                                     }
                                 })

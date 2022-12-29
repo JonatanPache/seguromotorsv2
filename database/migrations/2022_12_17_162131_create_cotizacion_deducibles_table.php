@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('deducible_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->string('deducible_value')->nullable();
             $table->timestamps();
         });
     }

@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->foreignId('time_id')
-                ->contrained()
-                ->cascadeOnDelete();
-            $table->enum('status',
-                ['new', 'processing', 'up', 'down', 'cancelled'])
-                ->default('new');
+            $table->string('poliza_id');
+            $table->string('cliente_id');
+            $table->date('date');
+            $table->date('date_pay')->nullable();
+            $table->string('otros_pagos')->nullable();
+            $table->string('total');
+            $table->string('dias_plazo');
+            $table->string('recargo_financiero')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('pagos');
     }
 };

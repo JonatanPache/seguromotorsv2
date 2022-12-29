@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('costo_siniestros', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('siniestro_id')
+            ->contrained()
+            ->cascadeOnDelete();
             $table->string('name');
-            $table->text('description');
-            $table->foreignId('time_id')
-                ->contrained()
-                ->cascadeOnDelete();
-            $table->enum('status',
-                ['new', 'processing', 'up', 'down', 'cancelled'])
-                ->default('new');
+            $table->text('detalle')->nullable();
+            $table->string('costo');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('costo_siniestros');
     }
 };

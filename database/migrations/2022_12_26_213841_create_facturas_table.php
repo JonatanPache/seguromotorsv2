@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pagos', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('number');
             $table->string('description');
+            $table->foreignId('pago_id')
+            ->contrained()
+            ->cascadeOnDelete();
+            $table->string('total_pagado');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pagos');
+        Schema::dropIfExists('facturas');
     }
 };

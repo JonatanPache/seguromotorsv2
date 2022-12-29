@@ -9,9 +9,28 @@ class Poliza extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'detalle',
+        'user_id',
+        'cotizacion_id',
+        'duracion',
+        'date_start',
+        'date_end'
+    ];
 
-    public function contratos()
+    public function pago()
     {
-        return $this->hasMany(Contrato::class);
+        return $this->hasMany(Pago::class);
     }
+
+    public function cotizacion()
+    {
+        return $this->belongsTo(Cotizacion::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

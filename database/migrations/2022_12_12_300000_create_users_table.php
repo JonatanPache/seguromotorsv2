@@ -26,6 +26,8 @@ return new class extends Migration
             $table->date('birthday');
             $table->rememberToken();
             $table->string('notification_token')->nullable();
+            $table->string('user_image1');
+            $table->string('user_image2')->nullable();
             $table->timestamps();
             $table->foreignId('city_id')
                 ->constrained()

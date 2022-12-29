@@ -27,8 +27,11 @@ class User extends Authenticatable
         'phone',
         'address',
         'birthday',
+        'notification_token',
         'city_id',
         'rol_id',
+        'image1',
+        'image2'
     ];
 
     /**
@@ -68,5 +71,20 @@ class User extends Authenticatable
     public function userVehiculo()
     {
         return $this->hasMany(UserVehiculo::class);
+    }
+
+    public function pago()
+    {
+        return $this->hasMany(Pago::class);
+    }
+
+    public function solicitudSiniestro()
+    {
+        return $this->hasMany(SolicitudSiniestro::class);
+    }
+
+    public function servicioSiniestro()
+    {
+        return $this->hasMany(ServicioSiniestro::class);
     }
 }

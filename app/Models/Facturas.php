@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Coaseguro extends Model
+class Facturas extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'number',
         'description',
-        'value',
-        'status'
+        'pago_id',
+        'total_pagado'
     ];
 
-    public function cotizacion()
+    public function pago()
     {
-        return $this->hasMany(Cotizacion::class);
+        return $this->belongsTo(Pago::class);
     }
-
 }

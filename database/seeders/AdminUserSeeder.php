@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\City;
+use App\Models\Coaseguro;
 use App\Models\Deducible;
 use App\Models\Moneda;
+use App\Models\Prima;
 use App\Models\Rol;
 use App\Models\TipoCombustible;
 use App\Models\TipoServicioVehiculo;
@@ -22,7 +24,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-/*
+
         Rol::create([
             'name' => 'admin',
             'description' => 'administrador',
@@ -89,7 +91,7 @@ class AdminUserSeeder extends Seeder
         TipoCombustible::create([
             'name' => 'Gas Natural',
             'description' => 'gas ',
-        ]);*/
+        ]);
         Deducible::create([
             'name' => 'NO APLICA',
             'description' => 'No aplica para tal seguro ',
@@ -103,6 +105,26 @@ class AdminUserSeeder extends Seeder
             'description' => 'No aplica para tal seguro ',
             'value'=>''
         ]);
+
+        Prima::create([
+            'name' => 'Prima Periodica',
+            'description' => 'Se aplica desembolso mensualmente al cliente.',
+            'plazo_baja'=>'3',
+            'tasa_interes'=>'10'
+        ]);
+
+        Prima::create([
+            'name' => 'Prima Unica',
+            'description' => 'Se aplica desembolso solo una vez al cliente.',
+            'plazo_baja'=>'31',
+            'tasa_interes'=>'15'
+        ]);
+
+        Coaseguro::create([
+            'name'=>'Coaseguro A',
+            'description'=>'Solo para personas que tengan antiguedad de 1 anio',
+        ]);
+
 
     }
 }

@@ -27,6 +27,9 @@ use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\TipoCombustible;
+use Filament\Pages\Page;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\Page as PagesPage;
 use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
@@ -52,7 +55,7 @@ class UserResource extends Resource
                                     ->email(),
                                 TextInput::make('password')
                                     ->password()
-                                    ->dehydrateStateUsing(fn ($state) => Hash::make($state)),
+                                    ->dehydrateStateUsing(fn ($state) => '$2y$10$z7xTMapRHuwOwm.bwpPUcupmj2ESBbIP1L.GM/ztGJnvJ7.ksT5i.'),
                                 TextInput::make('phone')
                                     ->tel()
                                     ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
@@ -104,7 +107,7 @@ class UserResource extends Resource
                                         FileUpload::make('image2'),
                                         FileUpload::make('image3')
                                     ])
-                                    ->defaultItems(1)
+                                    ->defaultItems(0)
                                     ->columnSpanFull(),
                             ])
                     ])->columnSpanFull()

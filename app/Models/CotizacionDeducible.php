@@ -12,7 +12,8 @@ class CotizacionDeducible extends Model
     protected $fillable = [
         'cotizacion_id',
         'tipo_cobertura_id',
-        'deducible_id'
+        'deducible_id',
+        'deducible_value'
     ];
 
     public function cotizacion()

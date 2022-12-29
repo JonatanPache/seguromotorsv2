@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('solicitud_siniestros', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->foreignId('time_id')
-                ->contrained()
-                ->cascadeOnDelete();
+            $table->string('description');
+            $table->date('date_solicitud');
+            $table->foreignId('cliente_id')
+            ->contrained()
+            ->cascadeOnDelete();
             $table->enum('status',
-                ['new', 'processing', 'up', 'down', 'cancelled'])
-                ->default('new');
+            ['new', 'processing', 'up', 'down', 'cancelled'])
+            ->default('new');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->timestamps();
         });
     }
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('solicitud_siniestros');
     }
 };

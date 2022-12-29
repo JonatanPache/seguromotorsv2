@@ -31,7 +31,9 @@ return new class extends Migration
             $table->string('placa');
             $table->string('image_hist_conduc');
             $table->string('image_hist_auto');
-            $table->boolean('status')->default(false);
+            $table->enum('status',
+             ['new', 'processing', 'up', 'down', 'cancelled'])
+             ->default('new');
             $table->timestamps();
         });
     }

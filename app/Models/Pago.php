@@ -10,25 +10,35 @@ class Pago extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'time_id',
-        'it'
+        'poliza_id',
+        'cliente_id',
+        'date',
+        'date_pay',
+        'otros_pagos',
+        'total',
+        'dias_plazo',
+        'recargo_financiero'
     ];
 
 
-    public function planes()
+    public function poliza()
     {
-        return $this->hasMany(Plan::class);
+        return $this->belongsTo(Poliza::class);
     }
 
-    public function contratos()
+    public function cliente()
     {
-        return $this->belongsTo(Contrato::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function time()
+    public function factura()
     {
-        return $this->belongsTo(Time::class);
+        return $this->hasOne(Facturas::class);
     }
+
+    public function otroPago()
+    {
+        return $this->hasMany(OtroPago::class);
+    }
+
 }

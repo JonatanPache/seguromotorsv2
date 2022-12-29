@@ -42,4 +42,9 @@ class Cotizacion extends Model
     {
         return $this->hasMany(Contrato::class);
     }
+
+    public function poliza()
+    {
+        return $this->hasMany(Poliza::class);
+    }
 }

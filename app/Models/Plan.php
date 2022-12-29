@@ -12,7 +12,8 @@ class Plan extends Model
     protected $fillable = [
         'name',
         'description',
-        'time_id'
+        'time_id',
+        'status'
     ];
 
     public function time()

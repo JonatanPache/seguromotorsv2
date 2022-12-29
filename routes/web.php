@@ -16,8 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/',WelcomeController::class)->name('welcome');
-
-
+Route::get('/notifications',[WelcomeController::class,'index_notifications'])
+    ->name('notifications');
+Route::get('/ver_notification/{id}',[WelcomeController::class,'show_notification'])
+    ->name('ver_notification');
+Route::get('/salir',WelcomeController::class)->name('salir');
+Route::get('/contrato/{id}',[WelcomeController::class,'contrato'])->name('contrato');
+Route::post('/contrato/contrato_firma/{id}',[WelcomeController::class,'contrato_firma'])->name('contrato_firma');
+Route::get('/pagos',[WelcomeController::class,'pagos_index'])->name('pagos');
+Route::post('/checkout',[WelcomeController::class,'pagos_store'])->name('checkout');
+Route::post('/pay',[WelcomeController::class,'pagos_pay'])->name('pay');
 
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

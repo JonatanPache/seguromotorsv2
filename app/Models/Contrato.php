@@ -16,6 +16,7 @@ class Contrato extends Model
         'cotizacion_id',
         'date_start',
         'date_end',
+        'cliente_firm',
         'status'
     ];
 
@@ -37,5 +38,10 @@ class Contrato extends Model
     public function cotizacion()
     {
         return $this->belongsTo(Cotizacion::class);
+    }
+
+    public function contratoPoliza()
+    {
+        return $this->hasMany(ContratoPoliza::class);
     }
 }

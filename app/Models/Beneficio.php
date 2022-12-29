@@ -11,6 +11,7 @@ class Beneficio extends Model
 
     protected $fillable = [
         'name',
-        'descripcion'
+        'descripcion',
+        'status'
     ];
 }

@@ -5,6 +5,8 @@ const colors=require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 
+    mode: 'jit',
+
     presets: [
         require('./vendor/wireui/wireui/tailwind.config.js')
     ],
@@ -15,7 +17,8 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './vendor/wireui/wireui/resources/**/*.blade.php',
         './vendor/wireui/wireui/ts/**/*.ts',
-        './vendor/wireui/wireui/src/View/**/*.php'
+        './vendor/wireui/wireui/src/View/**/*.php',
+        './node_modules/tw-elements/dist/js/**/*.js'
     ],
 
     theme: {
@@ -52,5 +55,8 @@ module.exports = {
         }
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [
+        require('tw-elements/dist/plugin'),
+        require('@tailwindcss/forms')
+    ],
 };
