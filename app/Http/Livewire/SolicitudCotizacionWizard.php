@@ -96,14 +96,10 @@ class SolicitudCotizacionWizard extends Component
                 'image_hist_auto' => $upload_auto,
             ]);
         }
-
-        $this->successMessage = 'Solicitud enviada exitosamente. Favor espere dentro de horas en recibir su Cotizacion.';
-
+        $this->successMessage = 'Solicitud enviada exitosamente. Favor espere dentro de
+        horas en recibir su Cotizacion.';
         $this->clearForm();
-
         $this->currentStep = 1;
-
-
     }
 
     public function back($step)

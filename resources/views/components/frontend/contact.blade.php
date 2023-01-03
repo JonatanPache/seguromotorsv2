@@ -1,10 +1,9 @@
 <section id="contact" class="section bg-light-primary dark:bg-dark-primary">
     <div class="container mx-auto">
         <div class="flex flex-col items-center text-center">
-            <h2 class="section-title">Contact me.</h2>
-            <p class="subtitle">pierre, for instance, have written with all the authority he could get, and
-                I believe I know as much as anybody, as to the importance of his work. He
-                was a genius;</p>
+            <h2 class="section-title">Cotiza tu auto.</h2>
+            <p class="subtitle">Para contratar un seguro, antes debes cotizar tu auto
+                para darte la prima que vas a tener que desembolsar.</p>
         </div>
 
         <div class="flex flex-col lg:flex-row lg:gap-x-8">
@@ -23,50 +22,38 @@
 
                     <div>
                         <h4 class="font-body text-xl mb-1">
-                            Have a question?
+                            Tienes alguna pregunta?
                         </h4>
-                        <p class="text-paragraph mb-1">I am here to help you.</p>
-                        <p class="text-accent font-normal">Email me at email@email.com</p>
+                        <p class="text-paragraph mb-1">Envia tus preguntas a la siguiente correo :</p>
+                        <p class="text-accent font-normal">Email email@email.com</p>
                     </div>
 
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-x-4">
-
                     <div class="text-accent rounded-sm w-14 h-14 flex items-center
                         justify-center mt-2 mb-4 lg:mb-0 text-2x1">
-
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                           </svg>
-
-
                     </div>
-
                     <div>
                         <h4 class="font-body text-xl mb-1">
-                            My current location
+                            Direccion :
                         </h4>
-                        <p class="text-paragraph mb-1">California, USA.</p>
-                        <p class="text-accent font-normal">Serving clients worldwide.</p>
+                        <p class="text-paragraph mb-1">Av Saone, Santa Cruz.</p>
+                        <p class="text-accent font-normal">Edificio #123</p>
                     </div>
-
                 </div>
-
             </div>
 
             <form x-data="form" @submit.prevent="submitForm" class="space-y-8 w-full max-w-md">
-
                 <div x-show="showMessage"
                     class="p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
                     <div class='max-w-7xl mx-auto '> Thanks you for contact me!.</div>
                 </div>
-
                 @csrf
-
-
-
                 <!--
                 <div class="flex gap-8">
                     <div>

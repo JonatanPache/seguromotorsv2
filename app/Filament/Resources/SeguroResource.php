@@ -28,13 +28,6 @@ class SeguroResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        /*
-                    ->afterStateUpdated(function ($state, callable $set) {
-                        $plan = Plan::find($state);
-                        if ($plan) {
-                            $set('cost', $plan->cost);
-                        }
-                    })*/
             ->schema([
                 TextInput::make('name'),
                 TextInput::make('description'),

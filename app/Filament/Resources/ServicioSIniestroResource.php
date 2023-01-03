@@ -2,42 +2,44 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PolizaResource\Pages;
-use App\Filament\Resources\PolizaResource\RelationManagers;
-use App\Models\Poliza;
+use App\Filament\Resources\ServicioSIniestroResource\Pages;
+use App\Filament\Resources\ServicioSIniestroResource\RelationManagers;
+use App\Models\ServicioSiniestro;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PolizaResource extends Resource
+class ServicioSIniestroResource extends Resource
 {
-    protected static ?string $model = Poliza::class;
+    protected static ?string $model = ServicioSiniestro::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+        ->schema([
+            Select::make('empleado_id')
+                ->relationship('Empleado', 'name'),
+            Select::make('solicitud_siniestro_id')
+                ->relationship('SolicitudSiniestro', 'id'),
+                TextInput::make('observaciones'),
+            TextInput::make('total_costo'),
+            TextInput::make('latitude')
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('detalle')->sortable()->searchable(),
-                TextColumn::make('user.name')->sortable()->searchable(),
-                TextColumn::make('date_start')->sortable()->searchable(),
-                TextColumn::make('date_end')->sortable()->searchable(),
-                TextColumn::make('created_at')->dateTime()
+                //
             ])
             ->filters([
                 //
@@ -60,9 +62,9 @@ class PolizaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPolizas::route('/'),
-            'create' => Pages\CreatePoliza::route('/create'),
-            'edit' => Pages\EditPoliza::route('/{record}/edit'),
+            'index' => Pages\ListServicioSIniestros::route('/'),
+            'create' => Pages\CreateServicioSIniestro::route('/create'),
+            'edit' => Pages\EditServicioSIniestro::route('/{record}/edit'),
         ];
     }
 }

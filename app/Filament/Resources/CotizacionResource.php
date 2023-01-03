@@ -116,17 +116,6 @@ class CotizacionResource extends Resource
                                             ->get()
                                             ->pluck('name', 'id');
                                     }
-                                    /*return SolicitudCotizacion::select('tipo_coberturas.*')
-                                    ->join('seguros', 'seguros.id', '=', 'solicitud_cotizacions.seguro_id')
-                                    ->join('plans', 'plans.id', '=', 'seguros.plan_id')
-                                    ->join('plan_coberturas', 'plan_coberturas.plan_id', '=', 'plans.id')
-                                    ->join('coberturas', 'coberturas.id', '=', 'plan_coberturas.cobertura_id')
-                                    ->join('cobertura_tipos', 'cobertura_tipos.cobertura_id', '=', 'coberturas.id')
-                                    ->join('tipo_coberturas', 'tipo_coberturas.id', '=', 'cobertura_tipos.cobertura_tipo_id')
-                                    ->where('solicitud_cotizacions.id','1' )
-                                    ->groupBy('id')
-                                    ->get()
-                                    ->pluck('name', 'id');*/
                                 })
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $set) {
@@ -157,21 +146,17 @@ class CotizacionResource extends Resource
                                             $valor_comercial = (float)$user_vehiculo->valor_comercial;
                                             $new_state = ((float)$state / 100) * 0.08;
                                             $prima_neta = (float)$get('../../prima_neta') + $valor_comercial * $new_state;
-
-
                                             $gastos = 0.03 * $prima_neta;
                                             $valor_prima = $prima_neta + $gastos;
                                             $iva = 0.13 * $valor_prima;
                                             $precio_prima = $valor_prima + $iva;
                                             $recargo = 0.10 * $precio_prima;
-
                                             $prima_neta = sprintf("%.3f", $prima_neta);
                                             $gastos = sprintf("%.3f", $gastos);
                                             $valor_prima = sprintf("%.3f", $valor_prima);
                                             $iva = sprintf("%.3f", $iva);
                                             $precio_prima = sprintf("%.3f", $precio_prima);
                                             $recargo = sprintf("%.3f", $recargo);
-
                                             $set('../../prima_neta', $prima_neta);
                                             $set('../../gastos', $gastos);
                                             $set('../../total_primas', $valor_prima);

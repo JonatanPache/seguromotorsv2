@@ -38,7 +38,16 @@ class CoberturaResource extends Resource
                         Card::make()
                             ->schema([
                                 TextInput::make('name'),
-                                TextInput::make('description')
+                                TextInput::make('description'),
+                                Select::make('status')
+                                    ->options([
+                                        'new' => 'New',
+                                        'processing' => 'Processing',
+                                        'up' => 'Up',
+                                        'down' => 'Down',
+                                        'cancelled' => 'Cancelled',
+                                    ])
+                                    ->reactive()
                             ]),
                         Card::make()
                             ->schema([
@@ -47,14 +56,14 @@ class CoberturaResource extends Resource
                                     ->schema([
                                         Select::make('cobertura_tipo_id')
                                             ->label('Cobertura')
-                                            ->options(TipoCobertura::query()->pluck('name','id'))
+                                            ->options(TipoCobertura::query()->pluck('name', 'id'))
                                             ->required()
                                             ->reactive(),
                                         TextInput::make('porcentaje_cob')->label('Porcentaje Cobertura'),
                                         TextInput::make('monto_cobertura')->label('Monto'),
                                         Select::make('limite_id')
                                             ->label('Limite')
-                                            ->options(Limite::query()->pluck('name','id'))
+                                            ->options(Limite::query()->pluck('name', 'id'))
                                             ->required()
                                             ->reactive()
                                     ])
@@ -87,9 +96,7 @@ class CoberturaResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     public static function getPages(): array

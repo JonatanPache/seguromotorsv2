@@ -2,6 +2,9 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Facturas;
+use App\Models\Pago;
+use Carbon\Carbon;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class ContratoUser1Chart extends ApexChartWidget
@@ -18,7 +21,7 @@ class ContratoUser1Chart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Contratos x User Chart';
+    protected static ?string $heading = 'Pagos x Mes';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -28,40 +31,41 @@ class ContratoUser1Chart extends ApexChartWidget
      */
     protected function getOptions(): array
     {
+        $pagos_total=Pago::all();
+        $pagos=[];
+        foreach($pagos_total as $pag){
+            if($pag->factura){
+                $pagos[]=$pag;
+            }
+        }
+        //dd($pagos);
+        $mes=['Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $data=[];
+        foreach($mes as $item){
+            $contador=0;
+            foreach($pagos as $item1){
+                $mes_current=(Carbon::parse($item1->date_pay))->format('M');
+                //dd(strcmp($mes_current,$item));
+                if(strcmp($mes_current,$item)==0){
+                    $contador+=1;
+                }
+            }
+
+            $data[]=$contador;
+        }
+        //dd($data);
         return [
             'chart' => [
-                'type' => 'area',
+                'type' => 'donut',
                 'height' => 300,
             ],
-            'series' => [
-                [
-                    'name' => 'ContratoUser1Chart',
-                    'data' => [7, 4, 6, 10, 14, 7, 5, 9, 10, 15, 13, 18],
-                ],
-            ],
-            'xaxis' => [
-                'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'series' => $data,
+            'labels' => $mes,
+            'legend' => [
                 'labels' => [
-                    'style' => [
-                        'colors' => '#9ca3af',
-                        'fontWeight' => 600,
-                    ],
+                    'colors' => '#9ca3af',
+                    'fontWeight' => 600,
                 ],
-            ],
-            'yaxis' => [
-                'labels' => [
-                    'style' => [
-                        'colors' => '#9ca3af',
-                        'fontWeight' => 600,
-                    ],
-                ],
-            ],
-            'colors' => ['#6366f1'],
-            'stroke' => [
-                'curve' => 'smooth',
-            ],
-            'dataLabels' => [
-                'enabled' => false,
             ],
         ];
     }

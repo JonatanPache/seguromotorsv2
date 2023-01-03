@@ -31,7 +31,8 @@ class User extends Authenticatable
         'city_id',
         'rol_id',
         'image1',
-        'image2'
+        'image2',
+        'remember_token',
     ];
 
     /**
@@ -41,7 +42,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**

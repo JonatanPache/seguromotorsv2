@@ -8,8 +8,8 @@
                 <span class="self-center text-xl font-semibold whitespace-nowrap
                     dark:text-white">SeguroMotors</span>
             </a>
-            <div class="flex items-center md:order-2 dropdown relative">
 
+            <div class="flex items-center md:order-2 dropdown relative">
                 @auth
                 <button class="dropdown-toggle inline-block px-6 py-2.5 bg-purple-600
                     text-white font-medium text-xs leading-tight uppercase rounded
@@ -30,11 +30,6 @@
                         whitespace-nowrap bg-transparent">
                         {{ auth()->user()->name}}
                     </h6>
-                    <!--
-                    <span
-                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap
-                        bg-transparent text-gray-300">Notificaciones</span>
-                    -->
                         <li>
                         <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-gray-700 hover:text-white focus:text-white focus:bg-gray-700 active:bg-blue-600"
                             href="{{ route('notifications') }}">Notificaciones</a>
@@ -52,7 +47,11 @@
                         <a href="{{ route('login') }}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100
                             md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
                             md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white
-                            md:dark:hover:bg-transparent dark:border-gray-700">Login</a>
+                            md:dark:hover:bg-transparent dark:border-gray-700">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white
+                            font-bold py-2 px-4 rounded-full">
+                                Login
+                              </button></a>
                     </div>
                 </form>
                 @endauth
@@ -102,9 +101,5 @@
                 </ul>
             </div>
         </div>
-
-
-
     </nav>
-
 </header>

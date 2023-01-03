@@ -2,7 +2,9 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Contrato;
 use App\Models\User;
+use Carbon\Carbon;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class ContratoUserChart extends ApexChartWidget
@@ -19,7 +21,7 @@ class ContratoUserChart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'ContratoUserChart';
+    protected static ?string $heading = 'Contratos x Mes';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -29,14 +31,29 @@ class ContratoUserChart extends ApexChartWidget
      */
     protected function getOptions(): array
     {
-
-        $users=User::all();
+        $contratos_all=Contrato::all();
+        /*
+        $pago=[];
+        foreach($pagos_total as $pag){
+            if($pag->factura){
+                $pagos[]=$pag;
+            }
+        }*/
+        //dd($pagos);
+        $mes=['Sep', 'Oct', 'Nov', 'Dec','Jan'];
         $data=[];
-        foreach($users as $user){
-            $data['label'][]=$user->name;
-        }
+        foreach($mes as $item){
+            $contador=0;
+            foreach($contratos_all as $item1){
+                $mes_current=(Carbon::parse($item1->date_pay))->format('M');
+                //dd(strcmp($mes_current,$item));
+                if(strcmp($mes_current,$item)==0){
+                    $contador+=1;
+                }
+            }
 
-        $data['data']=json_encode($data);
+            $data[]=$contador;
+        }
         return [
             'chart' => [
                 'type' => 'area',
@@ -44,12 +61,12 @@ class ContratoUserChart extends ApexChartWidget
             ],
             'series' => [
                 [
-                    'name' => 'ContratoUserChart',
+                    'name' => 'BasicAreaChart',
                     'data' => $data,
                 ],
             ],
             'xaxis' => [
-                'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                'categories' => $mes,
                 'labels' => [
                     'style' => [
                         'colors' => '#9ca3af',
@@ -64,14 +81,7 @@ class ContratoUserChart extends ApexChartWidget
                         'fontWeight' => 600,
                     ],
                 ],
-            ],
-            'colors' => ['#6366f1'],
-            'stroke' => [
-                'curve' => 'smooth',
-            ],
-            'dataLabels' => [
-                'enabled' => false,
-            ],
+            ]
         ];
     }
 }

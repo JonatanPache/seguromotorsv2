@@ -27,6 +27,10 @@ Route::get('/pagos',[WelcomeController::class,'pagos_index'])->name('pagos');
 Route::post('/checkout',[WelcomeController::class,'pagos_store'])->name('checkout');
 Route::post('/pay',[WelcomeController::class,'pagos_pay'])->name('pay');
 
+Route::get('/facturas/{id}/generate',[WelcomeController::class,'factura_generate'])->name('factura_print');
+Route::get('/facturas/{id}/ver',[WelcomeController::class,'factura_ver'])->name('factura_ver');
+
+
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -26,6 +26,8 @@ use Stripe\Checkout\Session as CheckoutSession;
 use Stripe\Customer;
 use Stripe\FinancialConnections\Session as FinancialConnectionsSession;
 use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSessionSession;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
+use Illuminate\Support\Facades\App;
 
 use function Clue\StreamFilter\append;
 
@@ -94,7 +96,7 @@ class WelcomeController extends Controller
     {
         $user = auth()->user();
         $pagos = Pago::all()->where('cliente_id', '=', $user->id);
-        $now = (Carbon::now()->month(15));  //->month(15)
+        $now = (Carbon::now()->month(16));  //->month(15)
         $pagos_send = array();
         $pagosFin=array();
         $total = 0;
@@ -158,14 +160,7 @@ class WelcomeController extends Controller
         }
         return redirect()->back();
     }
-    public function pagosTotal($pagos)
-    {
-        $sum = 0;
-        foreach ($pagos as $pago) {
-            $sum += $pago->total + $pago->recargo_financiero;
-        }
-        return $sum;
-    }
+
     public function pagos_pay(Request $request)
     {
         $stripe = new \Stripe\StripeClient("sk_test_51MJNScFW6Pgubl3xhwRRNL4VXmOhpy4EUoh6PkhglrxENfJzp2c1dBAWMntClEOgRcI8gG1quImAE5fKYHkAncsu00MDevVs9o");
@@ -200,5 +195,37 @@ class WelcomeController extends Controller
         } else {
             return back()->with('error', 'Hubo error');
         }
+    }
+
+    public function factura_generate($id)
+    {
+        $pago=Pago::find($id);
+        $cliente=User::find($pago->cliente->id);
+
+        if($pago && $cliente){
+            $factura=Facturas::find($pago->factura->id);
+            $data=['factura'=>$factura];
+            //$pdf=Pdf::loadView('facturas.generate',$data);
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('facturas.generate',$data);
+            return $pdf->stream();
+            //return $pdf->download('factura.pdf');
+            //return view('facturas.generate',compact('factura'));
+        }
+        return back();
+
+    }
+
+    public function factura_ver($id)
+    {
+        $pago=Pago::find($id);
+        $cliente=User::find($pago->cliente->id);
+
+        if($pago && $cliente){
+            $factura=Facturas::find($pago->factura->id);
+            return view('facturas.generate',compact('factura'));
+        }
+        return back();
+
     }
 }

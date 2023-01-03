@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PolizaResource\Pages;
-use App\Filament\Resources\PolizaResource\RelationManagers;
-use App\Models\Poliza;
+use App\Filament\Resources\FacturasResource\Pages;
+use App\Filament\Resources\FacturasResource\RelationManagers;
+use App\Models\Facturas;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -14,9 +14,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PolizaResource extends Resource
+class FacturasResource extends Resource
 {
-    protected static ?string $model = Poliza::class;
+    protected static ?string $model = Facturas::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -33,12 +33,11 @@ class PolizaResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('detalle')->sortable()->searchable(),
-                TextColumn::make('user.name')->sortable()->searchable(),
-                TextColumn::make('date_start')->sortable()->searchable(),
-                TextColumn::make('date_end')->sortable()->searchable(),
-                TextColumn::make('created_at')->dateTime()
-            ])
+                TextColumn::make('number')->sortable()->searchable(),
+                TextColumn::make('pago.cliente.name')->sortable(),
+                TextColumn::make('total_pagado')->sortable(),
+                TextColumn::make('created_at')->sortable()
+                ])
             ->filters([
                 //
             ])
@@ -60,9 +59,9 @@ class PolizaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPolizas::route('/'),
-            'create' => Pages\CreatePoliza::route('/create'),
-            'edit' => Pages\EditPoliza::route('/{record}/edit'),
+            'index' => Pages\ListFacturas::route('/'),
+            'create' => Pages\CreateFacturas::route('/create'),
+            'edit' => Pages\EditFacturas::route('/{record}/edit'),
         ];
     }
 }

@@ -41,8 +41,12 @@ class PagoResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('description')->sortable()->searchable(),
+                TextColumn::make('cliente.name')->sortable()->searchable(),
+                TextColumn::make('poliza_id')->sortable(),
+                TextColumn::make('date')->sortable(),
+                TextColumn::make('date_pay')->sortable(),
+                TextColumn::make('total')->sortable(),
+                TextColumn::make('recargo_financiero')->sortable(),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([
